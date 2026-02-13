@@ -9,7 +9,7 @@ export async function getUserPoints(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { userId } = req.params;
+    const { userId } = req.params as { userId: string };
     if (!userId || !Types.ObjectId.isValid(userId)) {
       res.status(HttpStatusCode.BadRequest).send({ message: "Invalid parameter. A valid userId is required." });
       return;

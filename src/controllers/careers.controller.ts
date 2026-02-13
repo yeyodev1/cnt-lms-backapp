@@ -10,7 +10,7 @@ function parsePositiveNumber(value: any): number | undefined {
   return n;
 }
 
- 
+
 
 export async function createCareer(
   req: Request,
@@ -99,7 +99,7 @@ export async function getCareerById(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { careerId } = req.params;
+    const { careerId } = req.params as { careerId: string };
     if (!careerId || !Types.ObjectId.isValid(careerId)) {
       res.status(HttpStatusCode.BadRequest).send({ message: "Invalid parameter. A valid careerId is required." });
       return;
@@ -139,7 +139,7 @@ export async function addCourseToCareer(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { careerId, courseId } = req.params;
+    const { careerId, courseId } = req.params as { careerId: string; courseId: string };
     if (!careerId || !Types.ObjectId.isValid(careerId)) {
       res.status(HttpStatusCode.BadRequest).send({ message: "Invalid parameter. A valid careerId is required." });
       return;
@@ -177,7 +177,7 @@ export async function removeCourseFromCareer(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { careerId, courseId } = req.params;
+    const { careerId, courseId } = req.params as { careerId: string; courseId: string };
     if (!careerId || !Types.ObjectId.isValid(careerId)) {
       res.status(HttpStatusCode.BadRequest).send({ message: "Invalid parameter. A valid careerId is required." });
       return;
@@ -223,7 +223,7 @@ export async function assignCareerToUser(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { careerId, userId } = req.params;
+    const { careerId, userId } = req.params as { careerId: string; userId: string };
     if (!careerId || !Types.ObjectId.isValid(careerId)) {
       res.status(HttpStatusCode.BadRequest).send({ message: "Invalid parameter. A valid careerId is required." });
       return;
@@ -265,7 +265,7 @@ export async function assignCareerToUser(
       for (const cid of courseIds) {
         try {
           await usersService.enrollUser({ user_id: finalTeachableUserId, course_id: cid } as any);
-        } catch (_err) {}
+        } catch (_err) { }
       }
       // reflect locally
       const freshUser = await models.users.findById(userId);
@@ -297,7 +297,7 @@ export async function enrollUserToCareerCourses(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { careerId, userId } = req.params;
+    const { careerId, userId } = req.params as { careerId: string; userId: string };
     if (!careerId || !Types.ObjectId.isValid(careerId)) {
       res.status(HttpStatusCode.BadRequest).send({ message: "Invalid parameter. A valid careerId is required." });
       return;
@@ -325,7 +325,7 @@ export async function enrollUserToCareerCourses(
     for (const cid of courseIds) {
       try {
         await usersService.enrollUser({ user_id: finalTeachableUserId, course_id: cid } as any);
-      } catch (_err) {}
+      } catch (_err) { }
     }
 
     const user = await models.users.findById(userId);
@@ -354,7 +354,7 @@ export async function getUserCareers(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { userId } = req.params;
+    const { userId } = req.params as { userId: string };
     if (!userId || !Types.ObjectId.isValid(userId)) {
       res.status(HttpStatusCode.BadRequest).send({ message: "Invalid parameter. A valid userId is required." });
       return;

@@ -59,7 +59,7 @@ export async function getEnrolledCoursesForUser(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { userId } = req.params;
+    const { userId } = req.params as { userId: string };
     const { teachableUserId } = (req.query || {}) as Record<string, any>;
 
     let courseIds: number[] = [];
@@ -433,7 +433,7 @@ export async function getCourseProgressForUser(
   _next: NextFunction,
 ): Promise<void> {
   try {
-    const { courseId, userId } = req.params;
+    const { courseId, userId } = req.params as { courseId: string; userId: string };
     const courseIdNum = parsePositiveNumber(courseId);
     if (!courseIdNum) {
       res.status(HttpStatusCode.BadRequest).send({ message: "Invalid parameter. A valid courseId is required." });
