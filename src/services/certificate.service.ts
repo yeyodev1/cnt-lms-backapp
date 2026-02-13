@@ -63,22 +63,6 @@ export class CertificateService {
         width: doc.page.width
       });
 
-      // SEALS (Sellos) - Professional Watermark
-      const selloPath = path.join(process.cwd(), "src", "static", "sello", "sello.png");
-      if (fs.existsSync(selloPath)) {
-        const selloSize = 300;
-        doc.opacity(0.05); // Very subtle opacity for the background seals
-
-        // Sello 1: Bottom Right (Background style)
-        doc.image(selloPath, doc.page.width - selloSize + 50, doc.page.height - selloSize + 50, {
-          width: selloSize
-        });
-
-        // Sello 2: Top Left (Background style)
-        doc.image(selloPath, -50, -50, {
-          width: selloSize
-        });
-      }
       doc.restore();
 
       // Border
@@ -91,7 +75,7 @@ export class CertificateService {
       if (fs.existsSync(logoPath)) {
         const logoWidth = 200;
         const logoX = (doc.page.width - logoWidth) / 2;
-        doc.image(logoPath, logoX, 40, { width: logoWidth });
+        doc.image(logoPath, logoX, 15, { width: logoWidth });
       }
 
       // Content with Absolute Positioning to ensure single page
