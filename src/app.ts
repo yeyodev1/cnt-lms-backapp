@@ -18,7 +18,8 @@ export default function createApp() {
     "http://localhost:5174",
     "http://localhost:8101",
     "https://fudmaster-testing-frontend.fudmaster.com.ec",
-    "https://fudmaster.com.ec"
+    "https://fudmaster.com.ec",
+    "https://cnt-demo-platform.netlify.app"
   ];
 
   const corsOptions = {
@@ -40,7 +41,7 @@ export default function createApp() {
   app.use(express.json({ limit: "50mb" }));
 
   app.get("/", (_req, res: Response) => {
-    res.send("fudmaster backend IS ALIVEEEEEEE:)");
+    res.send("cnt demo platform backend IS ALIVEEEEEEE:)");
   });
 
   routerApi(app);
